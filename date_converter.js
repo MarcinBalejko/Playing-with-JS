@@ -1,10 +1,9 @@
-
 let x = '2019-01-21T12:09:03Z'
 
 function showTime(parameter) {
-    const monthsArr = ["JAN", "FEB", "MAR", "APR",
-        "MAY", "JUN", "JUL", "AUG", "SEPT",
-        "OCT", "NOV", "DEC"
+    const monthsArr = ["Jan", "Feb", "Mar", "Apr",
+        "May", "Jun", "Jul", "Aug", "Sept",
+        "Oct", "Nov", "Dec"
     ];
 
     let dateObj = new Date(parameter);
