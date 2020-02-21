@@ -11,5 +11,3 @@ function formatStr(str) {
         .sort()
         .join('');
 }
-
-module.exports = isAnagram;
