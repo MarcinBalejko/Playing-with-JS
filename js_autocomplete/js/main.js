@@ -14,6 +14,7 @@ const searchStates = async (searchText) => {
 
   if (searchText.length === 0) {
     matches = [];
+    matchList.innerHTML = ""; // so that it doesn't show the previous search forever
   }
 
   outputHtml(matches);
