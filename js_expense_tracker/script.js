@@ -55,9 +55,11 @@ function addTransactionDOM(transaction) {
 
   item.innerHTML = `
   ${transaction.text} <span>${sign}${Math.abs(
+    // ^^^ Math.abs() turns into an absolute number
     transaction.amount
-  )}</span> <button class="delete-btn">x</button>`;
-  // ^^^ Math.abs() turns into an absolute number
+  )}</span> <button class="delete-btn" onClick="removeTransaction(${
+    transaction.id
+  })">x</button>`;
 
   list.appendChild(item);
 }
@@ -82,6 +84,14 @@ function updateValues() {
   balance.innerText = `$${total}`;
   money_plus.innerText = `$${income}`;
   money_minus.innerText = `$${expense}`;
+}
+
+// Remove transaction by ID
+function removeTransaction(id) {
+  transactions = transactions.filter((transaction) => transaction.id !== id);
+  // ^^ it will filter out whatever that id is
+
+  init();
 }
 
 // Init app
