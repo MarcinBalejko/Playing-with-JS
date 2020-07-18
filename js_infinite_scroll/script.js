@@ -8,7 +8,7 @@ let page = 1;
 // Fetch posts from API
 async function getPosts() {
   const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_pages=${page}`
+    `https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`
   );
 
   const data = await res.json();
@@ -26,9 +26,10 @@ async function showPosts() {
     postEl.innerHTML = `
       <div class="number">${post.id}</div>
       <div class="post-info">
-      <h2 class="post-title">${post.title}</h2>
-      <p class="post-body">${post.body}</p>
-      </div>`;
+        <h2 class="post-title">${post.title}</h2>
+        <p class="post-body">${post.body}</p>
+      </div>
+    `;
 
     postsContainer.appendChild(postEl);
   });
@@ -46,10 +47,6 @@ function showLoading() {
       showPosts();
     }, 300);
   }, 1000);
-
-  // .loader.show {
-  //   opacity: 1;
-  // }
 }
 
 // Filter posts by input
@@ -74,7 +71,6 @@ showPosts();
 
 window.addEventListener("scroll", () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  // DESTRUCTURING
 
   if (scrollTop + clientHeight >= scrollHeight - 5) {
     showLoading();
