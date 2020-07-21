@@ -68,7 +68,7 @@ function showData(data) {
     }
     ${
       data.next
-        ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Next</button>`
+        ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>`
         : ""
     }
     `;
@@ -77,7 +77,13 @@ function showData(data) {
   }
 }
 
-function getMoreSongs(url) {}
+// Get prev and next songs
+async function getMoreSongs(url) {
+  const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
+  const data = await res.json();
+
+  showData(data);
+}
 
 // Event listeners
 form.addEventListener("submit", (e) => {
