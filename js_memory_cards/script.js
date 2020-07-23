@@ -73,15 +73,21 @@ function createCard(data, index) {
   updateCurrentText();
 }
 
+// Show number of cards
+function updateCurrentText() {
+  currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
+}
+
+// Add card to local storage
+function setCardsData(cards) {
+  localStorage.setItem("cards", JSON.stringify(cards));
+  window.location.reload();
+}
+
 // Get cards from local storage
 function getCardsData() {
   const cards = JSON.parse(localStorage.getItem("cards"));
   return cards === null ? [] : cards;
-}
-
-// Show number of cards
-function updateCurrentText() {
-  currentEl.innerText = `${currentActiveCard + 1}/${cardsEl.length}`;
 }
 
 createCards();
@@ -122,4 +128,26 @@ showBtn.addEventListener("click", () => addContainer.classList.add("show"));
 // Hide add container
 hideBtn.addEventListener("click", () => {
   addContainer.classList.remove("show");
+});
+
+// Add new card
+addCardBtn.addEventListener("click", () => {
+  const question = questionEl.value;
+  const answer = answerEl.value;
+  if (question.trim() && answer.trim()) {
+    const newCard = { question, answer };
+
+    createCard(newCard);
+
+    questionEl.value = "";
+    answerEl.value = "";
+
+    addContainer.classList.remove("show");
+    // ^^^ We need to hide addContainer first
+
+    cardsData.push(newCard);
+    setCardsData(cardsData);
+    // ^^ in local storage we can't add a single item, we need
+    // to overwrite the entire thing
+  }
 });
