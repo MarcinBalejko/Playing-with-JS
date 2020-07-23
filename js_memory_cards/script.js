@@ -151,3 +151,10 @@ addCardBtn.addEventListener("click", () => {
     // to overwrite the entire thing
   }
 });
+
+// Clear cards button
+clearBtn.addEventListener("click", () => {
+  localStorage.clear();
+  cardsContainer.innerHTML = "";
+  window.location.reload();
+});
