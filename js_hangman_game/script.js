@@ -7,17 +7,29 @@ const finalMessage = document.getElementById("final-message");
 
 const figureParts = document.querySelectorAll(".figure-part");
 
-const words = ["application", "programming", "interface", "wizard"];
+const getWords = () => {
+  fetch("wordlist.json", { method: "GET" })
+    .then((res) => res.json())
+    .then((data) => {
+      data.map((item) => {
+        words.push(item.word);
+      });
+      selectedWord = words[Math.floor(Math.random() * words.length)];
+    });
+};
 
-let selectedWord = words[Math.floor(Math.random() * words.length)];
+const words = [];
+
+let selectedWord = "";
 
 const correctLetters = [];
 const wrongLetters = [];
 
 // Show hidden word
 function displayWord() {
+  elem = selectedWord;
   wordEl.innerHTML = `
-    ${selectedWord
+    ${elem
       .split("")
       .map(
         (letter) => `
@@ -30,7 +42,6 @@ function displayWord() {
     `;
 
   const innerWord = wordEl.innerText.replace(/\n/g, "");
-  //   ^^^removing new line character after each line (.replace(/\n/g, ""))
 
   if (innerWord === selectedWord) {
     finalMessage.innerText = "Congratulations! You won! 😃";
@@ -80,7 +91,6 @@ window.addEventListener("keydown", (e) => {
     const letter = e.key;
 
     if (selectedWord.includes(letter)) {
-      // ^^ includes() can be used on array as well as on a string
       if (!correctLetters.includes(letter)) {
         correctLetters.push(letter);
 
@@ -115,4 +125,11 @@ playAgainBtn.addEventListener("click", () => {
   popup.style.display = "none";
 });
 
-displayWord();
+async function starter() {
+  getWords();
+  setTimeout(() => {
+    displayWord();
+  }, 500);
+}
+
+starter();
