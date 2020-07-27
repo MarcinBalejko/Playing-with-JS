@@ -5,7 +5,7 @@ const popup = document.getElementById("popup-container");
 const notification = document.getElementById("notification-container");
 const finalMessage = document.getElementById("final-message");
 
-const figureParts = document.querySelector(".figure-part");
+const figureParts = document.querySelectorAll(".figure-part");
 
 const words = ["application", "programming", "interface", "wizard"];
 
